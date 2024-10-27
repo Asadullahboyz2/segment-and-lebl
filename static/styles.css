@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+    color: blueviolet;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.small-images {
+    width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-right: 900px;
+}
+
+.slice-container {
+    width: 100px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.slice-container img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.buttons button {
+    margin: 3px;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 12px;
+    
+}
+
+ .buttons::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+}
+
+
+
+
+.big-image {
+    width: 60%;
+    height: 80vh;
+    position: fixed;
+    right: 20px;
+    overflow: hidden;
+    
+}
+
+.big-image img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+h1{
+    color: blueviolet;
+}

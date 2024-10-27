@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slicer</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Image Slicer & Sorter</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label>Slice Width (pixels):</label>
+        <input type="number" name="slice_width" value="60" required>
+        <label>Slice Height (pixels):</label>
+        <input type="number" name="slice_height" value="40" required>
+        <input type="file" name="file" required>
+        <button type="submit">Upload and Slice</button>
+    </form>
+    {% if big_image %}
+        <div class="container">
+            <div class="small-images">
+                {% for slice in slices %}
+                    <div class="slice-container">
+                        <img src="{{ url_for('static', filename='images/' + slice) }}" alt="Slice">
+                        <div class="buttons">
+                            <button onclick="sortImage('{{ slice }}', 1, this)">Folder 1</button>
+                            <button onclick="sortImage('{{ slice }}', 2, this)">Folder 2</button>
+                            <button onclick="sortImage('{{ slice }}', 3, this)">Folder 3</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="big-image">
+                <img src="{{ url_for('static', filename='images/' + big_image) }}" alt="Big Image">
+            </div>
+        </div>
+    {% endif %}
+</body>
+<script>
+    function sortImage(image, folder, button) {
+        fetch('/sort_image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ image: image, folder: folder })
+        }).then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                // alert(data.message);
+                button.style.backgroundColor = 'green'; // Change button color to green
+            } else if (data.error) {
+                alert(data.error);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while sorting the image.');
+        });
+    }
+</script>
+</html>
